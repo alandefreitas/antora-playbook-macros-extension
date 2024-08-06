@@ -1,0 +1,33 @@
+site:
+  title: My Library
+  url: https://www.github.com/alandefreitas/antora-cpp-reference-extension
+  start_page: my-lib::index.adoc
+  robots: allow
+  keys:
+    repo_url: https://www.github.com/alandefreitas/antora-cpp-reference-extension
+content:
+  sources:
+    - url: ../..
+      start_path: example/doc
+      edit_url: >-
+        https://github.com/alandefreitas/antora-cpp-reference-extension/edit/{refname}/example/{path}
+ui:
+  bundle:
+    url: >-
+      https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+    bundle-property: develop
+antora:
+  extensions:
+    - require: '@alandefreitas/antora-playbook-macros-extension'
+      macros:
+        page-branch: develop
+        page-ui-branch: develop
+        page-commit-id: 0
+    - require: some other extension
+      compiler: clang++
+      main-branch: develop
+asciidoc:
+  attributes:
+    page-pagination: ''
+    a: develop

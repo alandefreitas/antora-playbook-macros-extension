@@ -1,2 +1,50 @@
 = Antora Playbook Macros Extension
 
+This allows you to use macros in your Antora playbook.
+
+== Configuration
+
+=== npm
+
+Install this extension
+
+[source,bash]
+----
+npm i -D @alandefreitas/antora-playbook-macros-extension
+----
+
+=== Playbook
+
+Append the following in your `playbook.yaml`:
+
+[source,yaml]
+----
+antora:
+  extensions:
+    - require: '@alandefreitas/antora-playbook-macros-extension' # <1>
+      macros: # <2>
+        key1: value1
+        key2: value2
+----
+
+* <1> `npm` package name: `@alandefreitas/antora-playbook-macros-extension` (required)
+* <2> List of default macros and values (optional)
+
+== Using macros
+
+Any value in the playbook can use a macro with the `${key}` syntax. The value will be replaced by the macro value as defined by one of the following sources:
+
+1. Environment variable
+2. Uppercase environment variable
+3. Asciidoc attribute
+4. Default value
+5. Predefined macros
+
+Asciidoc attributes comes from the `asciidoc.attributes` section of the playbook. They can also be set in the antora command line using the `--attribute` option.
+
+Default values are defined in the `macros` section of extension configuration. The provide a way to define default values for macros that are not set in any other source.
+
+The predefined macros are:
+
+- `branch`: The current branch name as per `git rev-parse --abbrev-ref HEAD`
+- `commit-id`: The current commit hash as per `git rev-parse HEAD`

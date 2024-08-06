@@ -1,0 +1,46 @@
+#
+# Copyright (c) 2024 Alan de Freitas (alandefreitas@gmail.com)
+#
+# Distributed under the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# Official repository: https://github.com/boostorg/url
+#
+
+# An antora playbook used for local development / tests
+# The playbook includes the example project as its only component
+
+site:
+  title: My Library
+  url: https://www.github.com/alandefreitas/antora-cpp-reference-extension
+  start_page: my-lib::index.adoc
+  robots: allow
+  keys:
+    repo_url: 'https://www.github.com/alandefreitas/antora-cpp-reference-extension'
+content:
+  sources:
+    - url: ../..
+      start_path: example/doc
+      edit_url: 'https://github.com/alandefreitas/antora-cpp-reference-extension/edit/{refname}/example/{path}'
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+    bundle-property: ${page-ui-branch} # from antora.extensions.macros.page-ui-branch
+antora:
+  extensions:
+    - require: '@alandefreitas/antora-playbook-macros-extension'
+      macros:
+        page-branch: develop
+        page-ui-branch: develop
+        page-commit-id: 000000
+    - require: 'some other extension'
+      compiler: ${cxx} # From environment variable
+      main-branch: ${a} # From asciidoc.attributes
+asciidoc:
+  attributes:
+    # Enable pagination
+    page-pagination: ''
+    a: ${page-branch} # From antora.extensions.macros.page-branch
+
+
